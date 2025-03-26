@@ -2,22 +2,23 @@
 namespace Scandiweb\Models;
 
 use Scandiweb\Models\Price;
-use Scandiweb\Models\Attribute\AttributeSet;
+use Scandiweb\Models\Attributes\AttributeSet;
 use Scandiweb\Models\Gallery;
 
-class Product
+abstract class Product
 {
     private int $id;
     private string $name;
     private bool $inStock;
     private string $description;
     private Category $category;
+    private string $brand;
     
     /** @var Price[] */
     private array $prices = [];
     
     /** @var AttributeSet[] */ 
-    private array $attributes = [];
+    protected array $attributes = [];
     
     /** @var Gallery[] */
     private array $gallery = [];
@@ -27,13 +28,15 @@ class Product
         string $name,
         bool $inStock,
         string $description,
-        Category $category
+        Category $category,
+        string $brand
     ) {
         $this->id = $id;
         $this->name = $name;
         $this->inStock = $inStock;
         $this->description = $description;
         $this->category = $category;
+        $this->brand = $brand;
     }
 
     public function addPrice(Price $price): void
@@ -41,14 +44,16 @@ class Product
         $this->prices[] = $price;
     }
 
-    public function addAttributeSet(AttributeSet $attributeSet): void
-    {
-        $this->attributes[] = $attributeSet;
-    }
-
     public function addGalleryImage(Gallery $image): void
     {
         $this->gallery[] = $image;
+    }
+
+    abstract protected function initializeAttributes(): void;
+
+    public function getAttributes(): array
+    {
+        return $this->attributes;
     }
 
     // Getters
@@ -61,5 +66,10 @@ class Product
     public function getPrices(): array
     {
         return $this->prices;
+    }
+
+    public function getBrand(): string
+    {
+        return $this->brand;
     }
 }

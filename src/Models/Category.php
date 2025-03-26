@@ -3,7 +3,6 @@ namespace Scandiweb\Models;
 
 class Category
 {
-    private int $id;
     private string $name;
 
     public function __construct(string $name) 
