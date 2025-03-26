@@ -80,8 +80,8 @@ class Seeder
     {
         $productStmt = $this->pdo->prepare(
             "INSERT INTO products 
-            (id, name, in_stock, description, category_id) 
-            VALUES (?, ?, ?, ?, ?)"
+            (id, name, in_stock, description, category_id, brand) 
+            VALUES (?, ?, ?, ?, ?, ?)"
         );
 
         foreach ($products as $product) {
@@ -91,6 +91,7 @@ class Seeder
                 $product['inStock'] ? 1 : 0,
                 strip_tags($product['description']),
                 $categoryMap[$product['category']],
+                $product['brand']
             ]);
 
             $this->seedPrices($product['id'], $product['prices']);

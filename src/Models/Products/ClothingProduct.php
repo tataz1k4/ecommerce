@@ -3,7 +3,6 @@ namespace Scandiweb\Models\Products;
 
 use Scandiweb\Models\Product;
 use Scandiweb\Models\Attributes\SizeAttribute;
-use Scandiweb\Models\Category;
 
 class ClothingProduct extends Product
 {
